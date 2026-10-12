@@ -79,6 +79,10 @@
     return out.join("\n");
   }
 
+  function bookMsg(e) {
+    return "Hi AMG Hydrovac, I would like to book. Rate sheet " + e.id + ". Name: " + (e.name || "") + (e.company ? " (" + e.company + ")" : "") + ". Service: " + e.service + (e.address ? ". Site: " + e.address : "") + ". When: ___";
+  }
+
   /* ---------- on-screen panel ---------- */
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function render(e, mount) {
@@ -103,8 +107,8 @@
         '<div class="estimate__actions">' +
           '<button class="btn" type="button" id="estimate-pdf">Download PDF rate sheet</button>' +
           '<a class="btn btn--ghost" href="tel:+18884824504">Call to book &middot; 1-888-482-4504</a>' +
-          '<a class="btn btn--ghost" href="mailto:quotes@amghydrovac.ca?subject=' + encodeURIComponent('Booking - rate sheet ' + e.id) + '">Email to book</a>' +
         '</div>' +
+        '<p class="book-alt book-alt--panel">Or book by <a href="mailto:quotes@amghydrovac.ca?subject=' + encodeURIComponent('Booking - rate sheet ' + e.id) + '&body=' + encodeURIComponent(bookMsg(e)) + '">email</a>, <a href="sms:+14373311609?&body=' + encodeURIComponent(bookMsg(e)) + '">text 437-331-1609</a> or <a href="https://wa.me/14373311609?text=' + encodeURIComponent(bookMsg(e)) + '" target="_blank" rel="noopener">WhatsApp</a>.</p>' +
         '<p class="form-note" id="estimate-status" aria-live="polite"></p>' +
       '</div>';
     var btn = mount.querySelector("#estimate-pdf"), status = mount.querySelector("#estimate-status");
@@ -118,7 +122,7 @@
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
         btn.disabled = false; btn.textContent = "Download PDF rate sheet";
-        status.textContent = "Your PDF is downloading. Call or email us with the sheet number when you are ready to book.";
+        status.textContent = "Your PDF is downloading. Call, text, WhatsApp or email us with the sheet number when you are ready to book.";
       }).catch(function () {
         btn.disabled = false; btn.textContent = "Download PDF rate sheet";
         status.textContent = "The PDF could not be built on this device. Your rate sheet is above; call 1-888-482-4504 and we send it to you.";
@@ -249,7 +253,7 @@
             y = para(n, M + 10, y, 8.6, helv, BODY, R - M - 10, 1.3) - 2;
           });
           y = sectionHead("TO BOOK", y);
-          para("Call 1-888-482-4504 (24/7) or email quotes@amghydrovac.ca with this sheet number; we confirm scope, locates and date.", M, y, 8.8, helv, BODY, R - M);
+          para("Call 1-888-482-4504 (24/7), text or WhatsApp 437-331-1609, or email quotes@amghydrovac.ca with this sheet number.", M, y, 8.8, helv, BODY, R - M);
 
           page.drawRectangle({ x: 0, y: 0, width: W, height: 40, color: INK });
           var foot1 = "$5M general liability  ·  $1M limited pollution  ·  $2M auto  ·  WSIB registered  ·  certificate of insurance on request";

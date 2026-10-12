@@ -336,6 +336,13 @@ strong { color: var(--text); font-weight: 600; }
 .estimate__notes li { margin-bottom: 0.35rem; }
 .estimate__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 1.25rem 1.25rem; }
 .estimate__actions .btn { flex: 1 1 220px; justify-content: center; }
+
+/* "Or book by email, text or WhatsApp" line under CTA buttons */
+.book-alt { flex-basis: 100%; margin: 0.35rem 0 0; font-size: 0.9rem; color: var(--muted); }
+.book-alt a { color: var(--text); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.book-alt a:hover { color: var(--amber); }
+@media (min-width: 880px) { .cta-band .book-alt { text-align: right; } }
+.book-alt--panel { padding: 0 1.25rem 1.1rem; margin: -0.5rem 0 0; }
 .menu-toggle span { width: 20px; height: 2px; background: var(--text); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
 body.menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 body.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
