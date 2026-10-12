@@ -3,3 +3,7 @@ Thumbs.db
 desktop.ini
 *.zip
 .netlify/
+
+# internal working notes, never published
+CLAUDE.md
+README.md
