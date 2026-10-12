@@ -57,7 +57,7 @@
     minimum.forEach(function (l) { subtotal += l.amount; });
     var hst = Math.round(subtotal * HST * 100) / 100;
 
-    notes.push("Every dispatch is billed from this minimum; anything beyond it is added at the rates listed. Your invoice reflects the actual hours and loads.");
+    notes.push("Billed from this minimum; anything beyond it is added at the rates above. Your invoice reflects actual hours and loads.");
     notes.push("Valid Ontario One Call locates are required before excavation; we confirm them and can arrange private locates.");
     notes.push("Rates valid for " + DAYS_VALID + " days from the date above. Canadian dollars; HST shown separately.");
 
@@ -249,11 +249,13 @@
           });
           y -= 4;
           y = sectionHead("TO BOOK", y);
-          para("Call 1-888-482-4504 (answered 24/7) or email quotes@amghydrovac.ca with this sheet number and we confirm the scope, locates and date. $5M general liability, $1M limited pollution, $2M auto, WSIB registered; certificate of insurance on request.", M, y, 8.8, helv, BODY, R - M);
+          para("Call 1-888-482-4504 (answered 24/7) or email quotes@amghydrovac.ca with this sheet number; we confirm the scope, locates and date.", M, y, 8.8, helv, BODY, R - M);
 
-          page.drawRectangle({ x: 0, y: 0, width: W, height: 34, color: INK });
-          var foot = "13575993 Canada Inc. o/a AMG Hydrovac  ·  HST 761843507RT0001  ·  Dig safe. Dig once.";
-          text(foot, (W - helv.widthOfTextAtSize(foot, 8)) / 2, 13, 8, helv, rgb(0.78, 0.8, 0.82));
+          page.drawRectangle({ x: 0, y: 0, width: W, height: 40, color: INK });
+          var foot1 = "$5M general liability  ·  $1M limited pollution  ·  $2M auto  ·  WSIB registered  ·  certificate of insurance on request";
+          var foot2 = "13575993 Canada Inc. o/a AMG Hydrovac  ·  HST 761843507RT0001  ·  Dig safe. Dig once.";
+          text(foot1, (W - helv.widthOfTextAtSize(foot1, 7.8)) / 2, 23, 7.8, helv, rgb(0.9, 0.91, 0.92));
+          text(foot2, (W - helv.widthOfTextAtSize(foot2, 7.8)) / 2, 10, 7.8, helv, rgb(0.78, 0.8, 0.82));
           return doc.save();
         });
       });
