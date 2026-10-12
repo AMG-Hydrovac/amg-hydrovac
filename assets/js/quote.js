@@ -223,12 +223,12 @@
           y = Math.min(ly, ry) - 8;
           if (e.details) {
             y = sectionHead("WHAT YOU TOLD US", y);
-            y = para(e.details.slice(0, 300), M, y, 9.3, helv, BODY, R - M) - 8;
+            y = para(e.details.slice(0, 300), M, y, 9.3, helv, BODY, R - M) - 6;
           }
 
           y = sectionHead("YOUR MINIMUM DISPATCH", y);
           y = tableHead(y, "INCLUDED IN EVERY DISPATCH", "AMOUNT (CAD)");
-          y = tableRows(e.minimum, y) - 6;
+          y = tableRows(e.minimum, y) - 2;
           function totalRow(label, v, big) {
             if (big) { y -= 8; page.drawRectangle({ x: 330, y: y - 7, width: R - 330, height: 24, color: TINT }); }
             text(label, 340, y, big ? 11 : 9.5, big ? bold : helv, DARK);
@@ -238,18 +238,16 @@
           totalRow("Subtotal", money(e.subtotal), false);
           totalRow("HST (13%)", money(e.hst), false);
           totalRow("Minimum dispatch total", money(e.total), true);
-          y -= 4;
 
           y = sectionHead("ADDITIONAL, ONLY IF REQUIRED", y);
           y = tableHead(y, "ITEM", "RATE (CAD, + HST)");
-          y = tableRows(e.additional, y) - 8;
+          y = tableRows(e.additional, y) - 4;
 
           y = sectionHead("HOW BILLING WORKS", y);
           e.notes.forEach(function (n) {
             page.drawRectangle({ x: M, y: y + 1, width: 4, height: 4, color: AMBER });
             y = para(n, M + 10, y, 8.6, helv, BODY, R - M - 10, 1.3) - 2;
           });
-          y -= 4;
           y = sectionHead("TO BOOK", y);
           para("Call 1-888-482-4504 (24/7) or email quotes@amghydrovac.ca with this sheet number; we confirm scope, locates and date.", M, y, 8.8, helv, BODY, R - M);
 
