@@ -48,16 +48,16 @@
     minimum.push({ item: "Spoil disposal, 1 load", detail: "hauled to AMG's yard; disposal at any other site is billed at cost", amount: DISPOSAL_PER_LOAD });
 
     additional.push({ item: "Each additional load of spoil", detail: "hauled to AMG's yard; at cost at any other site", amount: money(DISPOSAL_PER_LOAD) });
-    additional.push({ item: "Contaminated spoil disposal", detail: "impacted material that cannot go to AMG's yard, by scale weight", amount: money(CONTAMINATED_PER_TONNE) + " per tonne" });
+    additional.push({ item: "Contaminated spoil disposal", detail: "impacted material, by scale weight", amount: money(CONTAMINATED_PER_TONNE) + " per tonne" });
     additional.push({ item: "Remote hose, flat, when the truck cannot park beside the dig", detail: HOSE.map(function (h) { return h[0] + " " + money(h[1]); }).join("  ·  "), amount: money(HOSE[0][1]) + " to " + money(HOSE[2][1]) });
     additional.push({ item: "Flushing", detail: "when the job requires it", amount: money(FLUSH) });
-    additional.push({ item: "Emergency, nights, weekends and holidays", detail: "replaces the standard hourly rate for the minimum, travel and any additional hours; dispatch answered 24/7", amount: money(r.emergency) + " per hour" });
+    additional.push({ item: "Emergency, nights, weekends and holidays", detail: "in place of the standard hourly rate; dispatch answered 24/7", amount: money(r.emergency) + " per hour" });
 
     var subtotal = 0;
     minimum.forEach(function (l) { subtotal += l.amount; });
     var hst = Math.round(subtotal * HST * 100) / 100;
 
-    notes.push("Every dispatch is billed from this minimum; hours, loads and remote hose beyond it are added at the rates listed, nothing else. Your invoice reflects the actual hours on site and loads hauled.");
+    notes.push("Every dispatch is billed from this minimum; anything beyond it is added at the rates listed. Your invoice reflects the actual hours and loads.");
     notes.push("Valid Ontario One Call locates are required before excavation; we confirm them and can arrange private locates.");
     notes.push("Rates valid for " + DAYS_VALID + " days from the date above. Canadian dollars; HST shown separately.");
 
@@ -175,13 +175,13 @@
           function sectionHead(title, y) {
             text(title, M, y, 11, anton, DARK, { characterSpacing: 0.6 }); y -= 6;
             page.drawRectangle({ x: M, y: y, width: R - M, height: 1.4, color: AMBER });
-            return y - 16;
+            return y - 14;
           }
           function tableHead(y, left, right) {
             page.drawRectangle({ x: M, y: y - 4, width: R - M, height: 18, color: INK });
             text(left, M + 8, y + 1, 8, bold, WHITE, { characterSpacing: 0.8 });
             textRight(right, R - 8, y + 1, 8, bold, WHITE);
-            return y - 22;
+            return y - 20;
           }
           function tableRows(rows, y) {
             rows.forEach(function (l, i) {
@@ -231,7 +231,7 @@
             if (big) { y -= 8; page.drawRectangle({ x: 330, y: y - 7, width: R - 330, height: 24, color: TINT }); }
             text(label, 340, y, big ? 11 : 9.5, big ? bold : helv, DARK);
             textRight(v, R - 8, y, big ? 13 : 9.5, bold, DARK);
-            y -= big ? 26 : 16;
+            y -= big ? 24 : 14;
           }
           totalRow("Subtotal", money(e.subtotal), false);
           totalRow("HST (13%)", money(e.hst), false);
