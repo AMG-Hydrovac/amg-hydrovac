@@ -316,6 +316,11 @@ strong { color: var(--text); font-weight: 600; }
 .form-callout strong { color: var(--amber); }
 .form-callout a { color: var(--text); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .form-callout a:hover { color: var(--amber); }
+.form-callout--book { padding: 1rem 1.1rem 1.1rem; }
+.form-callout--book p { margin: 0; }
+.form-callout--book .book-row { margin-top: 0.85rem; }
+.form-callout--book .book-btn { background: rgba(14,17,22,0.55); }
+.form-callout--book .book-btn:hover { background: rgba(14,17,22,0.8); }
 
 /* Instant estimate panel (contact.html success state) */
 .estimate { margin-top: 1.75rem; text-align: left; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
