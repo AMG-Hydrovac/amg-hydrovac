@@ -12,7 +12,7 @@
   var RATES = {
     business:    { label: "Contractor / business",  hourly: 250, perBox: 250, emergency: 325 },
     municipal:   { label: "Municipality / utility", hourly: 250, perBox: 250, emergency: 325 },
-    residential: { label: "Homeowner",              hourly: 270, perBox: 270, emergency: 375 }
+    residential: { label: "Homeowner",              hourly: 270, perBox: 270, emergency: 375, hoseLabourer: 350 }
   };
   var MIN_HOURS = 4, TRAVEL_HOURS = 2, BOX_MIN = 4;
   var DISPOSAL_PER_LOAD = 450;                               // hauled to AMG's yard; at cost elsewhere
@@ -50,6 +50,7 @@
     additional.push({ item: "Each additional load of spoil", detail: "hauled to AMG's yard; at cost at any other site", amount: money(DISPOSAL_PER_LOAD) });
     additional.push({ item: "Contaminated spoil disposal", detail: "impacted material, by scale weight", amount: money(CONTAMINATED_PER_TONNE) + " per tonne" });
     additional.push({ item: "Remote hose, flat, when the truck cannot park beside the dig", detail: HOSE.map(function (h) { return h[0] + " " + money(h[1]); }).join("  ·  "), amount: money(HOSE[0][1]) + " to " + money(HOSE[2][1]) });
+    if (r.hoseLabourer) additional.push({ item: "Extra labourer when remote hose is used", detail: "flat per dispatch, in addition to the remote hose charge", amount: money(r.hoseLabourer) });
     additional.push({ item: "Flushing", detail: "when the job requires it", amount: money(FLUSH) });
     additional.push({ item: "Emergency, nights, weekends and holidays", detail: "in place of the standard hourly rate; dispatch answered 24/7", amount: money(r.emergency) + " per hour" });
 
@@ -102,6 +103,7 @@
         '<div class="estimate__actions">' +
           '<button class="btn" type="button" id="estimate-pdf">Download PDF rate sheet</button>' +
           '<a class="btn btn--ghost" href="tel:+18884824504">Call to book &middot; 1-888-482-4504</a>' +
+          '<a class="btn btn--ghost" href="mailto:quotes@amghydrovac.ca?subject=' + encodeURIComponent('Booking - rate sheet ' + e.id) + '">Email to book</a>' +
         '</div>' +
         '<p class="form-note" id="estimate-status" aria-live="polite"></p>' +
       '</div>';
