@@ -84,6 +84,17 @@
     return "Hi AMG Hydrovac, I would like to book. Rate sheet " + e.id + ". Name: " + (e.name || "") + (e.company ? " (" + e.company + ")" : "") + ". Service: " + e.service + (e.address ? ". Site: " + e.address : "") + ". When: ___";
   }
 
+  var ICON = {"phone":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z\"/></svg>","sms":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"/><path d=\"M8 9h8M8 13h5\"/></svg>","wa":"<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15l-1.4 5 5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z\"/></svg>","mail":"<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"m2 7 10 6 10-6\"/></svg>"};
+  function bookRow(e) {
+    var msg = encodeURIComponent(bookMsg(e));
+    return '<div class="book-row" aria-label="Book by phone, text, WhatsApp or email">' +
+      '<a class="book-btn" href="tel:+18884824504">' + ICON.phone + '<span>Call</span></a>' +
+      '<a class="book-btn" href="sms:+14373311609?&body=' + msg + '">' + ICON.sms + '<span>Text</span></a>' +
+      '<a class="book-btn" href="https://wa.me/14373311609?text=' + msg + '" target="_blank" rel="noopener">' + ICON.wa + '<span>WhatsApp</span></a>' +
+      '<a class="book-btn" href="mailto:quotes@amghydrovac.ca?subject=' + encodeURIComponent('Booking - rate sheet ' + e.id) + '&body=' + msg + '">' + ICON.mail + '<span>Email</span></a>' +
+    '</div>';
+  }
+
   /* ---------- on-screen panel ---------- */
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function render(e, mount) {
@@ -106,30 +117,24 @@
         '<table class="estimate__table estimate__table--add"><tbody>' + addRows + '</tbody></table>' +
         '<ul class="estimate__notes">' + e.notes.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + '</ul>' +
         '<div class="estimate__actions">' +
-          '<button class="btn" type="button" id="estimate-pdf">Download PDF rate sheet</button>' +
-          '<a class="btn btn--ghost" href="tel:+18884824504">Call to book &middot; 1-888-482-4504</a>' +
+          '<a class="btn" id="estimate-pdf" href="#" aria-disabled="true" role="button">Preparing your PDF\u2026</a>' +
         '</div>' +
-        '<p class="book-alt book-alt--panel">Or book by <a href="mailto:quotes@amghydrovac.ca?subject=' + encodeURIComponent('Booking - rate sheet ' + e.id) + '&body=' + encodeURIComponent(bookMsg(e)) + '">email</a>, <a href="sms:+14373311609?&body=' + encodeURIComponent(bookMsg(e)) + '">text 437-331-1609</a> or <a href="https://wa.me/14373311609?text=' + encodeURIComponent(bookMsg(e)) + '" target="_blank" rel="noopener">WhatsApp</a>.</p>' +
+        bookRow(e) +
         '<p class="form-note" id="estimate-status" aria-live="polite"></p>' +
       '</div>';
     var btn = mount.querySelector("#estimate-pdf"), status = mount.querySelector("#estimate-status");
-    btn.addEventListener("click", function () {
-      btn.disabled = true; btn.textContent = "Building your PDF…";
-      buildPdf(e).then(function (bytes) {
-        var blob = new Blob([bytes], { type: "application/pdf" });
-        if (mount.__pdfUrl) { try { URL.revokeObjectURL(mount.__pdfUrl); } catch (err) { /* ignore */ } }
-        var url = URL.createObjectURL(blob);
-        mount.__pdfUrl = url;
-        var name = "AMG-Hydrovac-Rate-Sheet-" + e.id + ".pdf";
-        var a = document.createElement("a");
-        a.href = url; a.download = name;
-        document.body.appendChild(a); a.click(); a.remove();
-        btn.disabled = false; btn.textContent = "Download PDF rate sheet";
-        status.innerHTML = 'Your PDF is ready. If it did not download, tap <a class="accent" href="' + url + '" download="' + name + '" target="_blank" rel="noopener">Open your PDF</a>. Call, text, WhatsApp or email us with the sheet number when you are ready to book.';
-      }).catch(function () {
-        btn.disabled = false; btn.textContent = "Download PDF rate sheet";
-        status.textContent = "The PDF could not be built on this device. Your rate sheet is above; call 1-888-482-4504 and we send it to you.";
-      });
+    var name = "AMG-Hydrovac-Rate-Sheet-" + e.id + ".pdf";
+    buildPdf(e).then(function (bytes) {
+      var blob = new Blob([bytes], { type: "application/pdf" });
+      if (mount.__pdfUrl) { try { URL.revokeObjectURL(mount.__pdfUrl); } catch (err) { /* ignore */ } }
+      var url = URL.createObjectURL(blob);
+      mount.__pdfUrl = url;
+      btn.href = url; btn.download = name; btn.removeAttribute("aria-disabled");
+      btn.textContent = "Download PDF rate sheet";
+      status.textContent = "Your PDF is ready. On an iPhone it opens first; use Share to save it.";
+    }).catch(function () {
+      btn.textContent = "PDF unavailable on this device";
+      status.textContent = "Your rate sheet is above. Call, text, WhatsApp or email us and we send the PDF.";
     });
   }
 

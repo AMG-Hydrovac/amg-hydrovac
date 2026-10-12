@@ -346,12 +346,22 @@ strong { color: var(--text); font-weight: 600; }
 .estimate__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 1.25rem 1.25rem; }
 .estimate__actions .btn { flex: 1 1 220px; justify-content: center; }
 
-/* "Or book by email, text or WhatsApp" line under CTA buttons */
-.book-alt { flex-basis: 100%; margin: 0.35rem 0 0; font-size: 0.9rem; color: var(--muted); }
-.book-alt a { color: var(--text); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-.book-alt a:hover { color: var(--amber); }
-@media (min-width: 880px) { .cta-band .book-alt { text-align: right; } }
-.book-alt--panel { padding: 0 1.25rem 1.1rem; margin: -0.5rem 0 0; }
+/* Booking buttons: Call / Text / WhatsApp / Email */
+.book-row { flex-basis: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin-top: 0.25rem; }
+@media (min-width: 700px) { .book-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.book-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+  min-height: 52px; padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: rgba(255,255,255,0.03); color: var(--text);
+  font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; text-decoration: none;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.book-btn svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--amber); }
+.book-btn:hover { border-color: var(--amber); background: var(--amber-tint); transform: translateY(-1px); }
+.estimate .book-row { padding: 0 1.25rem 1.25rem; margin: 0; }
+.estimate__actions { padding-bottom: 0.75rem; }
+.estimate__actions .btn[aria-disabled="true"] { opacity: 0.6; pointer-events: none; }
 .menu-toggle span { width: 20px; height: 2px; background: var(--text); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
 body.menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 body.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }
