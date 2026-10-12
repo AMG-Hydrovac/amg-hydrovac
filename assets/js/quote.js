@@ -18,7 +18,7 @@
   var DISPOSAL_PER_LOAD = 450;                               // hauled to AMG's yard; at cost elsewhere
   var HOSE = [["up to 100 ft", 500], ["up to 200 ft", 750], ["up to 300 ft (maximum)", 1000]];
   var FLUSH = 150;
-  var CONTAMINATED_PER_TONNE = 200;                        // impacted spoil that cannot go to AMG's yard
+  var CONTAMINATED_PER_TONNE = 200;                        // per tonne, replaces the per-load charge for that load (owner 2026-10-12)
   var HST = 0.13;
   var DAYS_VALID = 30;
 
@@ -48,10 +48,10 @@
     minimum.push({ item: "Spoil disposal, 1 load", detail: "hauled away and disposed of by AMG; disposal at a site you specify is billed at cost", amount: DISPOSAL_PER_LOAD });
 
     additional.push({ item: "Each additional load of spoil", detail: "hauled away and disposed of by AMG; at cost at a site you specify", amount: money(DISPOSAL_PER_LOAD) });
-    additional.push({ item: "Contaminated spoil disposal", detail: "material the receiving facility classifies as contaminated, by scale weight; we tell you before it leaves the site", amount: money(CONTAMINATED_PER_TONNE) + "/tonne" });
+    additional.push({ item: "Contaminated spoil disposal", detail: "if the receiving facility classifies the material as contaminated, that load is billed by scale weight instead of the " + money(DISPOSAL_PER_LOAD) + " load charge; we tell you before it leaves the site", amount: money(CONTAMINATED_PER_TONNE) + "/tonne" });
     additional.push({ item: "Remote hose, flat, when the truck cannot park beside the dig", detail: HOSE.map(function (h) { return h[0] + " " + money(h[1]); }).join("  ·  "), amount: "from " + money(HOSE[0][1]) });
     if (r.hoseLabourer) additional.push({ item: "Extra labourer when remote hose is used", detail: "flat per dispatch, in addition to the remote hose charge", amount: money(r.hoseLabourer) });
-    additional.push({ item: "Flushing", detail: "when the job requires it", amount: money(FLUSH) });
+    additional.push({ item: "Flushing", detail: "", amount: money(FLUSH) });
     additional.push({ item: "After-hours dispatch: nights, weekends and holidays", detail: "replaces the standard hourly rate only when we roll outside business hours; urgent daytime work is at the standard rates above", amount: money(r.emergency) + "/hour" });
 
     var subtotal = 0;
@@ -99,10 +99,10 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function render(e, mount) {
     var minRows = e.minimum.map(function (l) {
-      return '<tr><td><strong>' + esc(l.item) + '</strong><br><span>' + esc(l.detail) + '</span></td><td class="estimate__amt"><span class="num">' + money(l.amount) + '</span></td></tr>';
+      return '<tr><td><strong>' + esc(l.item) + '</strong>' + (l.detail ? '<br><span>' + esc(l.detail) + '</span>' : '') + '</td><td class="estimate__amt"><span class="num">' + money(l.amount) + '</span></td></tr>';
     }).join("");
     var addRows = e.additional.map(function (l) {
-      return '<tr><td><strong>' + esc(l.item) + '</strong><br><span>' + esc(l.detail) + '</span></td><td class="estimate__amt"><span class="num">' + esc(l.amount) + '</span></td></tr>';
+      return '<tr><td><strong>' + esc(l.item) + '</strong>' + (l.detail ? '<br><span>' + esc(l.detail) + '</span>' : '') + '</td><td class="estimate__amt"><span class="num">' + esc(l.amount) + '</span></td></tr>';
     }).join("");
     mount.innerHTML =
       '<div class="estimate" id="estimate">' +
@@ -201,7 +201,7 @@
           }
           function tableRows(rows, y) {
             rows.forEach(function (l, i) {
-              var detailLines = wrap(l.detail, helv, 8.5, 380);
+              var detailLines = (l.detail ? wrap(l.detail, helv, 8.5, 380) : []);
               var rowH = 16 + detailLines.length * 10.5, rowTop = y + 10;
               if (i % 2 === 0) page.drawRectangle({ x: M, y: rowTop - rowH, width: R - M, height: rowH, color: ZEBRA });
               text(l.item, M + 8, y - 2, 10, bold, DARK);
@@ -236,7 +236,7 @@
           right.forEach(function (l) { ry = para(l, 330, ry, 9.5, helv, BODY, R - 330); });
           y = Math.min(ly, ry) - 8;
           // Everything below the details block has a fixed height; give the details only the room that is left.
-          var rowsH = function (rows) { var h = 0; rows.forEach(function (l) { h += 16 + wrap(l.detail, helv, 8.5, 380).length * 10.5; }); return h; };
+          var rowsH = function (rows) { var h = 0; rows.forEach(function (l) { h += 16 + (l.detail ? wrap(l.detail, helv, 8.5, 380) : []).length * 10.5; }); return h; };
           var notesH = 0; e.notes.forEach(function (n) { notesH += wrap(n, helv, 8.6, R - M - 10).length * 8.6 * 1.3 + 2; });
           var fixedNeed = (30 + 20 + rowsH(e.minimum) + 2 + 14 + 14 + 32) + (30 + 20 + rowsH(e.additional) + 4) + (30 + notesH) + (30 + 14) + 40 + 10;
           if (e.details) {

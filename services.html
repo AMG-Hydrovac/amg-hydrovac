@@ -54,6 +54,7 @@
     ]}
   }
   </script>
+  <!-- sw-reset --><script>if("serviceWorker" in navigator){navigator.serviceWorker.getRegistrations().then(function(rs){if(!rs.length)return;Promise.all(rs.map(function(r){return r.unregister()})).then(function(){return "caches" in window?caches.keys().then(function(ks){return Promise.all(ks.map(function(k){return caches.delete(k)}))}):null}).then(function(){try{if(navigator.serviceWorker.controller&&!sessionStorage.getItem("amgSwReset")){sessionStorage.setItem("amgSwReset","1");location.reload()}}catch(e){}})}).catch(function(){})}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
