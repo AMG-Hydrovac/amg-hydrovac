@@ -10,14 +10,15 @@
   "use strict";
 
   var RATES = {
-    business:    { label: "Contractor / business",    hourly: 250, perBox: 250 },
-    municipal:   { label: "Municipality / utility",   hourly: 250, perBox: 250 },
-    residential: { label: "Homeowner", hourly: 270, perBox: 270 }
+    business:    { label: "Contractor / business",  hourly: 250, perBox: 250, emergency: 325 },
+    municipal:   { label: "Municipality / utility", hourly: 250, perBox: 250, emergency: 325 },
+    residential: { label: "Homeowner",              hourly: 270, perBox: 270, emergency: 375 }
   };
   var MIN_HOURS = 4, TRAVEL_HOURS = 2, BOX_MIN = 4;
   var DISPOSAL_PER_LOAD = 450;                               // hauled to AMG's yard; at cost elsewhere
   var HOSE = [["up to 100 ft", 500], ["up to 200 ft", 750], ["up to 300 ft (maximum)", 1000]];
   var FLUSH = 150;
+  var CONTAMINATED_PER_TONNE = 200;                        // impacted spoil that cannot go to AMG's yard
   var HST = 0.13;
   var DAYS_VALID = 30;
 
@@ -44,12 +45,13 @@
       additional.push({ item: "Each additional hour on site", detail: "billed to the half hour after the minimum", amount: money(r.hourly) });
     }
     minimum.push({ item: "Travel (mobilization and demobilization)", detail: TRAVEL_HOURS + " hours x " + money(r.hourly) + " per hour, flat per dispatch", amount: TRAVEL_HOURS * r.hourly });
-    minimum.push({ item: "Spoil disposal, 1 load", detail: "hauled to AMG's yard", amount: DISPOSAL_PER_LOAD });
+    minimum.push({ item: "Spoil disposal, 1 load", detail: "hauled to AMG's yard; disposal at any other site is billed at cost", amount: DISPOSAL_PER_LOAD });
 
-    additional.push({ item: "Each additional load of spoil", detail: "hauled to AMG's yard; at cost if dumped at a facility you specify", amount: money(DISPOSAL_PER_LOAD) });
+    additional.push({ item: "Each additional load of spoil", detail: "hauled to AMG's yard; at cost at any other site", amount: money(DISPOSAL_PER_LOAD) });
+    additional.push({ item: "Contaminated spoil disposal", detail: "impacted material that cannot go to AMG's yard, by scale weight", amount: money(CONTAMINATED_PER_TONNE) + " per tonne" });
     additional.push({ item: "Remote hose, flat, when the truck cannot park beside the dig", detail: HOSE.map(function (h) { return h[0] + " " + money(h[1]); }).join("  ·  "), amount: money(HOSE[0][1]) + " to " + money(HOSE[2][1]) });
     additional.push({ item: "Flushing", detail: "when the job requires it", amount: money(FLUSH) });
-    additional.push({ item: "Nights, weekends, holidays, emergency call-outs", detail: "quoted when you call 1-888-482-4504", amount: "by phone" });
+    additional.push({ item: "Emergency, nights, weekends and holidays", detail: "replaces the standard hourly rate for the minimum, travel and any additional hours; dispatch answered 24/7", amount: money(r.emergency) + " per hour" });
 
     var subtotal = 0;
     minimum.forEach(function (l) { subtotal += l.amount; });
