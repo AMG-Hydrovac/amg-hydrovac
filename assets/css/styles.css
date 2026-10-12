@@ -400,17 +400,7 @@ body.menu-open .mobile-menu nav a:nth-child(5) { transition-delay: 0.36s; }
 .hero__stat .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; letter-spacing: 0.02em; }
 .hero__stat .num .accent { color: var(--amber); }
 
-.scroll-cue {
-  position: absolute; left: 50%; bottom: 1.5rem; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--faint);
-  z-index: 2;
-}
-.scroll-cue .bar { width: 1px; height: 40px; background: linear-gradient(var(--amber), transparent); position: relative; overflow: hidden; }
-.scroll-cue .bar::after { content: ""; position: absolute; top: -50%; left: 0; width: 100%; height: 50%; background: var(--amber); animation: scrollcue 2s var(--ease) infinite; }
-@keyframes scrollcue { 0% { top: -50%; } 100% { top: 100%; } }
-/* Only where the hero has room below the stat row: wide and tall viewports */
-@media (max-width: 1099px), (max-height: 760px) { .scroll-cue { display: none; } }
+/* (scroll cue removed Oct 2026: it overlapped the hero stat row) */
 
 /* Signature motif: excavation depth ruler (desktop only, decorative) */
 .hero__ruler {
