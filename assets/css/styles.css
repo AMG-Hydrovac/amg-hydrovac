@@ -3,6 +3,16 @@
    Self-contained. No build step. Mobile-first.
    ================================================================= */
 
+/* ---------- Self-hosted fonts (latin subsets, preloaded from each page) ---------- */
+@font-face {
+  font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/anton-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/inter-latin-var.woff2") format("woff2");
+}
+
 /* ---------- Design tokens ---------- */
 :root {
   /* Surfaces */
@@ -280,6 +290,27 @@ strong { color: var(--text); font-weight: 600; }
   border-radius: var(--radius); cursor: pointer;
 }
 @media (min-width: 1024px) { .menu-toggle { display: none; } }
+
+/* Mobile header call button (desktop shows the full phone block instead) */
+.header-call {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; margin-left: auto; margin-right: -0.75rem; flex-shrink: 0;
+  background: var(--amber); color: var(--ink);
+  border-radius: var(--radius); border: 1px solid var(--amber-600);
+}
+.header-call svg { width: 21px; height: 21px; }
+.header-call:hover { background: var(--amber-600); color: var(--ink); }
+@media (min-width: 1024px) { .header-call { display: none; } }
+
+/* Contact form: call-first note above the quote form */
+.form-callout {
+  display: block; margin: 0 0 1.5rem; padding: 0.95rem 1.1rem;
+  background: var(--amber-tint); border: 1px solid var(--amber-line); border-radius: var(--radius);
+  color: var(--text); font-size: 0.95rem; line-height: 1.5;
+}
+.form-callout strong { color: var(--amber); }
+.form-callout a { color: var(--text); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.form-callout a:hover { color: var(--amber); }
 .menu-toggle span { width: 20px; height: 2px; background: var(--text); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
 body.menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 body.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }

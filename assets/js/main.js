@@ -8,6 +8,16 @@
   var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isSmall = window.matchMedia("(max-width: 760px)").matches;
 
+  /* ---------- Lead source: remember the first page of the visit for the quote form ---------- */
+  var LANDING_KEY = "amgLanding";
+  try {
+    if (!window.sessionStorage.getItem(LANDING_KEY)) {
+      var q = window.location.search || "";
+      var tag = /[?&](gclid|gbraid|wbraid)=/.test(q) ? " [google-ads]" : (/[?&]utm_/.test(q) ? " [utm" + q.slice(0, 80) + "]" : "");
+      window.sessionStorage.setItem(LANDING_KEY, window.location.pathname + window.location.hash + tag);
+    }
+  } catch (err) { /* private mode: no landing memory */ }
+
   /* ---------- Header: solidify on scroll ---------- */
   var header = document.querySelector(".site-header");
   function onScrollHeader() {
@@ -249,7 +259,7 @@
     function showError(btn, msg) {
       if (btn) { btn.disabled = false; btn.textContent = "Send Quote Request"; }
       if (errorEl) {
-        errorEl.textContent = msg || "Sorry — something went wrong sending your request. Please call 1-888-482-4504 or email quotes@amghydrovac.ca.";
+        errorEl.textContent = msg || "Sorry — something went wrong sending your request. Please call 1-888-482-4504 or email dispatch@amghydrovac.ca.";
         errorEl.classList.add("show");
       }
     }
@@ -269,6 +279,16 @@
       var rt = form.querySelector('input[name="replyto"]');
       var emailInput = form.querySelector("#email");
       if (rt && emailInput) rt.value = emailInput.value;
+
+      // Lead-source fields: which page they landed on, which page they converted on, and where they came from.
+      var landingField = form.querySelector('input[name="landing_page"]');
+      var sourceField = form.querySelector('input[name="source_page"]');
+      var refField = form.querySelector('input[name="referrer"]');
+      var landing = "";
+      try { landing = window.sessionStorage.getItem(LANDING_KEY) || ""; } catch (err) { landing = ""; }
+      if (landingField) landingField.value = landing || window.location.pathname;
+      if (sourceField) sourceField.value = window.location.pathname + window.location.hash;
+      if (refField) refField.value = (document.referrer || "direct").slice(0, 200);
 
       var btn = form.querySelector("button[type=submit]");
       if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
@@ -300,7 +320,7 @@
   var stickyBar = document.querySelector(".sticky-bar");
   if (stickyBar) {
     var onStickyScroll = function () {
-      stickyBar.classList.toggle("is-shown", window.scrollY > 360);
+      stickyBar.classList.toggle("is-shown", window.scrollY > 80);
     };
     onStickyScroll();
     window.addEventListener("scroll", onStickyScroll, { passive: true });
