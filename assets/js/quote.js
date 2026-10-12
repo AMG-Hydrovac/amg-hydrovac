@@ -293,6 +293,8 @@
       var t = form.querySelector('[name="ratesheet_minimum"]'), s = form.querySelector('[name="ratesheet_summary"]');
       if (t) t.value = money(e.total) + " incl. HST, minimum dispatch (" + e.id + ")";
       if (s) s.value = summaryText(e);
+      var subj = form.querySelector('[name="subject"]');
+      if (subj) subj.value = "Rate sheet " + e.id + " · " + (e.name || "Unknown") + (e.company ? " (" + e.company + ")" : "") + " · " + e.service + " · " + money(e.total) + " min · " + e.typeLabel;
       form.__estimate = e;
       return e;
     },
