@@ -316,6 +316,24 @@ strong { color: var(--text); font-weight: 600; }
 .form-callout strong { color: var(--amber); }
 .form-callout a { color: var(--text); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .form-callout a:hover { color: var(--amber); }
+
+/* Instant estimate panel (contact.html success state) */
+.estimate { margin-top: 1.75rem; text-align: left; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.estimate__head { padding: 1.1rem 1.25rem 0.9rem; border-bottom: 1px solid var(--line); }
+.estimate__head h3 { margin: 0.35rem 0 0.2rem; font-size: 1.25rem; }
+.estimate__id { margin: 0; color: var(--faint); font-size: 0.82rem; }
+.estimate__table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.estimate__table td { padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); }
+.estimate__table td strong { color: var(--text); }
+.estimate__table td span { display: block; font-size: 0.82rem; color: var(--faint); margin-top: 0.15rem; }
+.estimate__amt { text-align: right; white-space: nowrap; font-weight: 700; color: var(--text); }
+.estimate__table tfoot td { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.estimate__total td { background: var(--amber-tint); color: var(--text); font-weight: 700; font-size: 1.05rem; border-bottom: 0; }
+.estimate__total .estimate__amt { color: var(--amber); font-size: 1.25rem; font-family: var(--font-display); letter-spacing: 0.02em; }
+.estimate__notes { margin: 0; padding: 1rem 1.25rem 0.5rem 2.4rem; color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
+.estimate__notes li { margin-bottom: 0.35rem; }
+.estimate__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 1.25rem 1.25rem; }
+.estimate__actions .btn { flex: 1 1 220px; justify-content: center; }
 .menu-toggle span { width: 20px; height: 2px; background: var(--text); transition: transform 0.3s var(--ease), opacity 0.3s var(--ease); }
 body.menu-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 body.menu-open .menu-toggle span:nth-child(2) { opacity: 0; }

@@ -252,6 +252,8 @@
       form.style.display = "none";
       if (success) {
         success.classList.add("show");
+        var mount = document.getElementById("estimate-mount");
+        if (mount && window.AMGQuote) { try { window.AMGQuote.show(form, mount); } catch (err) { /* estimate is optional */ } }
         // Move focus to the confirmation so keyboard/screen-reader users hear it.
         success.setAttribute("tabindex", "-1");
         success.focus({ preventScroll: true });
@@ -259,7 +261,7 @@
       }
     }
     function showError(btn, msg) {
-      if (btn) { btn.disabled = false; btn.textContent = "Send Quote Request"; }
+      if (btn) { btn.disabled = false; btn.textContent = "Get My Instant Estimate"; }
       if (errorEl) {
         errorEl.textContent = msg || "Sorry — something went wrong sending your request. Please call 1-888-482-4504 or email quotes@amghydrovac.ca.";
         errorEl.classList.add("show");
@@ -281,6 +283,9 @@
       var rt = form.querySelector('input[name="replyto"]');
       var emailInput = form.querySelector("#email");
       if (rt && emailInput) rt.value = emailInput.value;
+
+      // Instant estimate: fill the hidden estimate fields so the lead email carries the number quoted.
+      if (window.AMGQuote) { try { window.AMGQuote.prepare(form); } catch (err) { /* estimate is optional */ } }
 
       // Lead-source fields: which page they landed on, which page they converted on, and where they came from.
       var landingField = form.querySelector('input[name="landing_page"]');
