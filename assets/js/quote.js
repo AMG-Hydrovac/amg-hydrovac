@@ -249,7 +249,7 @@
           });
           y -= 4;
           y = sectionHead("TO BOOK", y);
-          para("Call 1-888-482-4504 (answered 24/7) or email quotes@amghydrovac.ca with this sheet number; we confirm the scope, locates and date.", M, y, 8.8, helv, BODY, R - M);
+          para("Call 1-888-482-4504 (24/7) or email quotes@amghydrovac.ca with this sheet number; we confirm scope, locates and date.", M, y, 8.8, helv, BODY, R - M);
 
           page.drawRectangle({ x: 0, y: 0, width: W, height: 40, color: INK });
           var foot1 = "$5M general liability  ·  $1M limited pollution  ·  $2M auto  ·  WSIB registered  ·  certificate of insurance on request";
