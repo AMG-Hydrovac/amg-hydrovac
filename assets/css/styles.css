@@ -421,6 +421,15 @@ body.menu-open .mobile-menu nav a:nth-child(5) { transition-delay: 0.36s; }
     radial-gradient(70% 60% at 15% 90%, rgba(40,80,120,0.18), transparent 60%),
     linear-gradient(180deg, #0a0d12 0%, #11161f 60%, #0a0d12 100%);
 }
+/* Real photo behind the home hero (gradient overlay keeps the text readable) */
+.hero__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 45%; z-index: -1; }
+.hero--photo .hero__bg::before {
+  background:
+    radial-gradient(60% 50% at 75% 25%, rgba(245,166,35,0.10), transparent 60%),
+    linear-gradient(180deg, rgba(10,13,18,0.82) 0%, rgba(14,18,25,0.56) 50%, rgba(10,13,18,0.94) 100%);
+}
+.hero--photo .hero__grid { opacity: 0.22; }
+@media (max-width: 640px) { .hero__photo { object-position: 68% 50%; } }
 .hero__grid {
   position: absolute; inset: 0; z-index: -2; opacity: 0.5;
   background-image:
@@ -558,6 +567,7 @@ body.menu-open .mobile-menu nav a:nth-child(5) { transition-delay: 0.36s; }
   background: linear-gradient(145deg, var(--surface-3), var(--surface));
 }
 .media-frame--tall { aspect-ratio: 4 / 5; }
+.media-frame--wide { aspect-ratio: 16 / 9; }
 .media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .media-frame__label {
   position: absolute; left: 1rem; bottom: 1rem; z-index: 3;
