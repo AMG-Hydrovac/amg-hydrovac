@@ -261,7 +261,7 @@
     function showError(btn, msg) {
       if (btn) { btn.disabled = false; btn.textContent = "Send Quote Request"; }
       if (errorEl) {
-        errorEl.textContent = msg || "Sorry — something went wrong sending your request. Please call 1-888-482-4504 or email dispatch@amghydrovac.ca.";
+        errorEl.textContent = msg || "Sorry — something went wrong sending your request. Please call 1-888-482-4504 or email quotes@amghydrovac.ca.";
         errorEl.classList.add("show");
       }
     }
