@@ -1,0 +1,6 @@
+# Netlify continuous deployment for amghydrovac.ca
+# Static site: no build step. The command only removes internal docs
+# so they are not published alongside the site files.
+[build]
+  publish = "."
+  command = "rm -f CLAUDE.md README.md netlify.toml .gitignore"
