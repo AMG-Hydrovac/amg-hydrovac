@@ -334,6 +334,8 @@ strong { color: var(--text); font-weight: 600; }
 #form-success { scroll-margin-top: calc(var(--header-h) + 1rem); }
 @media (max-width: 480px) {
   .form-success { padding-left: 0; padding-right: 0; }
+  .estimate { margin-left: -1.5rem; margin-right: -1.5rem; border-left: 0; border-right: 0; border-radius: 0; }
+  .book-btn { font-size: 0.9rem; padding: 0.8rem 0.5rem; gap: 0.45rem; }
   .estimate__table { table-layout: fixed; font-size: 0.86rem; }
   .estimate__table td { padding-left: 0.85rem; padding-right: 0.85rem; }
   .estimate__amt { width: 34%; }
@@ -344,7 +346,8 @@ strong { color: var(--text); font-weight: 600; }
 .estimate__notes { margin: 0; padding: 1rem 1.25rem 0.5rem 2.4rem; color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
 .estimate__notes li { margin-bottom: 0.35rem; }
 .estimate__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 1.25rem 1.25rem; }
-.estimate__actions .btn { flex: 1 1 220px; justify-content: center; }
+.estimate__actions .btn { flex: 1 1 220px; justify-content: center; white-space: normal; text-align: center; padding-left: 1rem; padding-right: 1rem; }
+.estimate > .form-note { margin: 0; padding: 0 1.25rem 1.1rem; }
 
 /* Booking buttons: Call / Text / WhatsApp / Email */
 .book-row { flex-basis: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin-top: 0.25rem; }

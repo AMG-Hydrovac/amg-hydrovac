@@ -130,7 +130,7 @@
       var url = URL.createObjectURL(blob);
       mount.__pdfUrl = url;
       btn.href = url; btn.download = name; btn.removeAttribute("aria-disabled");
-      btn.textContent = "Download PDF rate sheet";
+      btn.textContent = "Download PDF";
       status.textContent = "Your PDF is ready. On an iPhone it opens first; use Share to save it.";
     }).catch(function () {
       btn.textContent = "PDF unavailable on this device";
