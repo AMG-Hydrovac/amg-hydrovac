@@ -257,7 +257,7 @@
         // Move focus to the confirmation so keyboard/screen-reader users hear it.
         success.setAttribute("tabindex", "-1");
         success.focus({ preventScroll: true });
-        success.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "center" });
+        success.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
       }
     }
     function showError(btn, msg) {

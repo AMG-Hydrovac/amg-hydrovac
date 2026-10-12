@@ -328,7 +328,16 @@ strong { color: var(--text); font-weight: 600; }
 .estimate__table td { padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); }
 .estimate__table td strong { color: var(--text); }
 .estimate__table td span { display: block; font-size: 0.82rem; color: var(--faint); margin-top: 0.15rem; }
-.estimate__amt { text-align: right; white-space: nowrap; font-weight: 700; color: var(--text); }
+.estimate__amt { text-align: right; font-weight: 700; color: var(--text); }
+.estimate__amt .num { white-space: nowrap; }
+.contact-grid > * { min-width: 0; }
+#form-success { scroll-margin-top: calc(var(--header-h) + 1rem); }
+@media (max-width: 480px) {
+  .form-success { padding-left: 0; padding-right: 0; }
+  .estimate__table { table-layout: fixed; font-size: 0.86rem; }
+  .estimate__table td { padding-left: 0.85rem; padding-right: 0.85rem; }
+  .estimate__amt { width: 34%; }
+}
 .estimate__table tfoot td { padding-top: 0.5rem; padding-bottom: 0.5rem; }
 .estimate__total td { background: var(--amber-tint); color: var(--text); font-weight: 700; font-size: 1.05rem; border-bottom: 0; }
 .estimate__total .estimate__amt { color: var(--amber); font-size: 1.25rem; font-family: var(--font-display); letter-spacing: 0.02em; }

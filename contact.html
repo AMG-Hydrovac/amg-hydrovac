@@ -164,28 +164,28 @@
 
                 <div class="field-row">
                   <div class="field">
-                    <label for="customer_type">Who is the work for? <span class="req">*</span></label>
+                    <label for="customer_type">You are booking as <span class="req">*</span></label>
                     <select class="select" id="customer_type" name="customer_type" required aria-describedby="customer-type-err">
                       <option value="">Select…</option>
-                      <option value="business">Contractor / business</option>
-                      <option value="municipal">Municipality / utility</option>
-                      <option value="residential">Homeowner</option>
+                      <option value="business">Contractor, plumber or business</option>
+                      <option value="municipal">Municipality or utility</option>
+                      <option value="residential">Homeowner (my own property)</option>
                     </select>
-                    <span class="err" id="customer-type-err">Please tell us who the work is for.</span>
+                    <span class="err" id="customer-type-err">Please tell us who is booking.</span>
                   </div>
-                </div>
-
-                <div class="field-row">
                   <div class="field">
                     <label for="timeline">Timeline</label>
                     <select class="select" id="timeline" name="timeline">
                       <option value="">Select…</option>
-                      <option>Emergency — ASAP</option>
+                      <option>As soon as possible</option>
                       <option>Within a week</option>
                       <option>2–4 weeks</option>
                       <option>Planning / future project</option>
                     </select>
                   </div>
+                </div>
+
+                <div class="field-row">
                   <div class="field">
                     <label for="address">Site Address / Location</label>
                     <input class="input" type="text" id="address" name="address" placeholder="Street, city or intersection" />
@@ -211,7 +211,7 @@
               <div class="form-success" id="form-success" role="status" aria-live="polite">
                 <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg></div>
                 <h3>Request Received</h3>
-                <p>We&rsquo;ve received your request — we&rsquo;ll confirm the scope and date the same business day. Your personalized rate sheet is below. For emergencies, call <a class="accent" href="tel:+18884824504">1-888-482-4504</a>.</p>
+                <p>We&rsquo;ve received your request — we&rsquo;ll be in touch the same business day to confirm the scope and book your date. Your personalized rate sheet is below. For emergencies, call <a class="accent" href="tel:+18884824504">1-888-482-4504</a>.</p>
                 <div id="estimate-mount"></div>
               </div>
             </div>
