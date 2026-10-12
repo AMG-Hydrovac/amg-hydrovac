@@ -100,8 +100,8 @@
                 <input type="hidden" name="landing_page" value="" />
                 <input type="hidden" name="source_page" value="" />
                 <input type="hidden" name="referrer" value="" />
-                <input type="hidden" name="estimate_total" value="" />
-                <input type="hidden" name="estimate_summary" value="" />
+                <input type="hidden" name="ratesheet_minimum" value="" />
+                <input type="hidden" name="ratesheet_summary" value="" />
                 <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none !important;" />
                 <div class="field-row">
                   <div class="field">
@@ -169,46 +169,10 @@
                       <option value="">Select…</option>
                       <option value="business">Contractor / business</option>
                       <option value="municipal">Municipality / utility</option>
-                      <option value="residential">Homeowner / one-time job</option>
+                      <option value="residential">Homeowner</option>
                     </select>
                     <span class="err" id="customer-type-err">Please tell us who the work is for.</span>
                   </div>
-                  <div class="field">
-                    <label for="hours">Estimated time on site</label>
-                    <select class="select" id="hours" name="hours">
-                      <option value="">Not sure (we start from the 4-hour minimum)</option>
-                      <option value="4">Up to 4 hours (minimum)</option>
-                      <option value="6">About 6 hours</option>
-                      <option value="8">About 8 hours (full day)</option>
-                      <option value="10">About 10 hours</option>
-                      <option value="12">About 12 hours</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field-row">
-                  <div class="field">
-                    <label for="hose">How far is the dig from where a truck can park?</label>
-                    <select class="select" id="hose" name="hose">
-                      <option value="0">Truck can park beside it (within 100 ft)</option>
-                      <option value="100">Remote hose, up to 100 ft</option>
-                      <option value="200">Remote hose, up to 200 ft</option>
-                      <option value="300">Remote hose, up to 300 ft (our maximum)</option>
-                    </select>
-                  </div>
-                  <div class="field">
-                    <label for="disposal">Spoil disposal</label>
-                    <select class="select" id="disposal" name="disposal">
-                      <option value="yard">Haul it away (per load)</option>
-                      <option value="site">Dump at a facility I specify (at cost)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field" id="boxes-field" hidden>
-                  <label for="boxes">Number of water boxes</label>
-                  <input class="input" type="number" id="boxes" name="boxes" min="1" max="60" value="4" inputmode="numeric" />
-                  <span class="form-note">Priced per box, 4-box minimum per dispatch.</span>
                 </div>
 
                 <div class="field-row">
@@ -234,10 +198,10 @@
                   <span class="err" id="details-err">Please add a few details about the work.</span>
                 </div>
 
-                <button class="btn btn--lg btn--block" type="submit">Get My Instant Estimate
+                <button class="btn btn--lg btn--block" type="submit">Get My Rate Sheet
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </button>
-                <p class="form-note">Your estimate appears right here, with a PDF you can download. The request also goes straight to dispatch and estimating, monitored around the clock. We never share your information.</p>
+                <p class="form-note">Your personalized rate sheet appears right here, with a PDF you can download. The request also goes straight to dispatch and estimating, monitored around the clock. We never share your information.</p>
                 <p class="form-note">Have a drawing or site photo? Email <a class="accent" href="mailto:quotes@amghydrovac.ca?subject=Quote%20request%20%E2%80%94%20drawing%20attached">quotes@amghydrovac.ca</a> and we&rsquo;ll quote from it.</p>
                 <p class="form-note">Wondering how we price? <a class="accent" href="services.html#pricing">See how hydrovac pricing works</a>.</p>
                 <p class="form-error" id="form-error" role="alert"></p>
@@ -247,7 +211,7 @@
               <div class="form-success" id="form-success" role="status" aria-live="polite">
                 <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12l5 5L20 6"/></svg></div>
                 <h3>Request Received</h3>
-                <p>We&rsquo;ve received your request — we&rsquo;ll respond the same business day. For emergencies, call <a class="accent" href="tel:+18884824504">1-888-482-4504</a>.</p>
+                <p>We&rsquo;ve received your request — we&rsquo;ll confirm the scope and date the same business day. Your personalized rate sheet is below. For emergencies, call <a class="accent" href="tel:+18884824504">1-888-482-4504</a>.</p>
                 <div id="estimate-mount"></div>
               </div>
             </div>

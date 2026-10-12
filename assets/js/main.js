@@ -261,7 +261,7 @@
       }
     }
     function showError(btn, msg) {
-      if (btn) { btn.disabled = false; btn.textContent = "Get My Instant Estimate"; }
+      if (btn) { btn.disabled = false; btn.textContent = "Get My Rate Sheet"; }
       if (errorEl) {
         errorEl.textContent = msg || "Sorry — something went wrong sending your request. Please call 1-888-482-4504 or email quotes@amghydrovac.ca.";
         errorEl.classList.add("show");
@@ -284,7 +284,7 @@
       var emailInput = form.querySelector("#email");
       if (rt && emailInput) rt.value = emailInput.value;
 
-      // Instant estimate: fill the hidden estimate fields so the lead email carries the number quoted.
+      // Rate sheet: fill the hidden fields so the lead email carries the minimum shown to the visitor.
       if (window.AMGQuote) { try { window.AMGQuote.prepare(form); } catch (err) { /* estimate is optional */ } }
 
       // Lead-source fields: which page they landed on, which page they converted on, and where they came from.

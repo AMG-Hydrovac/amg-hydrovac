@@ -322,6 +322,8 @@ strong { color: var(--text); font-weight: 600; }
 .estimate__head { padding: 1.1rem 1.25rem 0.9rem; border-bottom: 1px solid var(--line); }
 .estimate__head h3 { margin: 0.35rem 0 0.2rem; font-size: 1.25rem; }
 .estimate__id { margin: 0; color: var(--faint); font-size: 0.82rem; }
+.estimate__label { margin: 0; padding: 0.9rem 1.25rem 0.35rem; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); font-weight: 700; }
+.estimate__table--add td { padding-top: 0.5rem; padding-bottom: 0.5rem; }
 .estimate__table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
 .estimate__table td { padding: 0.7rem 1.25rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); }
 .estimate__table td strong { color: var(--text); }
