@@ -1,5 +1,10 @@
 # Netlify continuous deployment for amghydrovac.ca
-# Static site: no build step. The command only keeps config files out of the published site.
+# Static site plus one serverless function (rate-sheet email). The build command embeds the
+# PDF code + font into the function, then keeps config files out of the published site.
 [build]
   publish = "."
-  command = "rm -f netlify.toml .gitignore"
+  command = "node netlify/embed.js && rm -f netlify.toml .gitignore"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

@@ -121,6 +121,7 @@
         '</div>' +
         bookRow(e) +
         '<p class="form-note" id="estimate-status" aria-live="polite"></p>' +
+        '<p class="form-note" id="estimate-email" aria-live="polite"></p>' +
       '</div>';
     var btn = mount.querySelector("#estimate-pdf"), status = mount.querySelector("#estimate-status");
     var name = "AMG-Hydrovac-Rate-Sheet-" + e.id + ".pdf";

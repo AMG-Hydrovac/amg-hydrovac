@@ -240,6 +240,7 @@
       if (control) control.addEventListener("input", function () { if (field.classList.contains("invalid")) validateField(field); });
     });
     var errorEl = document.querySelector("#form-error");
+    var formConfigured = false;
     function showSuccess() {
       // Google Ads conversion: quote form submitted (Submit lead form).
       if (typeof gtag === "function") {
@@ -254,6 +255,21 @@
         success.classList.add("show");
         var mount = document.getElementById("estimate-mount");
         if (mount && window.AMGQuote) { try { window.AMGQuote.show(form, mount); } catch (err) { /* estimate is optional */ } }
+        // Email the same rate sheet (PDF attached) to the visitor via the serverless function; silent if unavailable.
+        if (form.__estimate && window.fetch && formConfigured) {
+          try {
+            var fields = {};
+            ["name", "company", "phone", "email", "service", "region", "customer_type", "timeline", "address", "details"].forEach(function (k) {
+              var el = form.querySelector('[name="' + k + '"]'); fields[k] = el ? String(el.value || "").trim() : "";
+            });
+            var hp = form.querySelector('[name="botcheck"]'); fields.botcheck = hp && hp.checked ? "1" : "";
+            fields.sheet_id = form.__estimate.id; fields.sheet_date = form.__estimate.date;
+            fetch("/.netlify/functions/send-rate-sheet", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(fields) })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (d) { var el = document.getElementById("estimate-email"); if (el && d && d.ok) el.textContent = "We also emailed this rate sheet to " + fields.email + " with the PDF attached."; })
+              .catch(function () { /* email is a bonus, the sheet is on screen */ });
+          } catch (err) { /* ignore */ }
+        }
         // Move focus to the confirmation so keyboard/screen-reader users hear it.
         success.setAttribute("tabindex", "-1");
         success.focus({ preventScroll: true });
@@ -305,6 +321,7 @@
       // If no real access key is set yet, run in demo mode (shows success, sends nothing).
       var keyField = form.querySelector('input[name="access_key"]');
       var configured = keyField && keyField.value && keyField.value.indexOf("YOUR_ACCESS_KEY") === -1;
+      formConfigured = configured;
       if (!configured) {
         setTimeout(showSuccess, 700);
         return;
